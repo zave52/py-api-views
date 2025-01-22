@@ -23,9 +23,10 @@ class ActorSerializer(serializers.ModelSerializer):
         return instance
 
 
-class GenreSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(max_length=255)
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ["id", "name"]
 
     def create(self, validated_data: dict) -> Genre:
         return Genre.objects.create(**validated_data)
@@ -36,11 +37,10 @@ class GenreSerializer(serializers.Serializer):
         return instance
 
 
-class CinemaHallSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(max_length=255)
-    rows = serializers.IntegerField()
-    seats_in_row = serializers.IntegerField()
+class CinemaHallSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CinemaHall
+        fields = ["id", "name", "rows", "seats_in_row"]
 
     def create(self, validated_data: dict) -> CinemaHall:
         return CinemaHall.objects.create(**validated_data)
@@ -56,11 +56,10 @@ class CinemaHallSerializer(serializers.Serializer):
         return instance
 
 
-class MovieSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField(max_length=255)
-    description = serializers.CharField()
-    duration = serializers.IntegerField()
+class MovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ["id", "title", "description", "duration"]
 
     def create(self, validated_data: dict) -> Movie:
         return Movie.objects.create(**validated_data)
